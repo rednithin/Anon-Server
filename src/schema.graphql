@@ -1,0 +1,42 @@
+# import * from '../prisma.graphql'
+
+type Response {
+  id: ID!
+  response: String!
+  question: Question!
+}
+
+type Question {
+  id: ID!
+  query: String!
+  isPublic: Boolean!
+  responses: [Response!]!
+  company: Company!
+}
+
+type Company {
+  id: ID!
+  email: String!
+  name: String!
+  password: String!
+  description: String!
+  questions: [Question!]!
+}
+
+type Query {
+  me: Company
+  signin(email: String!, password: String!): Company!
+  questions: [Question]!
+  question(questionID: ID!): Question!
+}
+
+type Mutation {
+  signup(
+    name: String!
+    description: String!
+    email: String!
+    password: String!
+  ): Company!
+  addQuestion(query: String!, isPublic: Boolean!): Question!
+  addResponse(response: String!, questionID: ID!): Response!
+}

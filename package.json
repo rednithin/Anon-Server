@@ -1,0 +1,22 @@
+{
+  "name": "Anon-Server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:rednithin/Anon-Server.git",
+  "author": "rednithin <reddy.nithinpg@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "debug": "nodemon -e js,graphql -x node --inspect src/index.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "graphql-yoga": "^1.16.7",
+    "jsonwebtoken": "^8.4.0",
+    "prisma-binding": "^2.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}

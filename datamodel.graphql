@@ -1,0 +1,26 @@
+type Response {
+  id: ID! @unique
+  response: String!
+  question: Question! @relation(name: "ResponsesForQuestion")
+}
+
+type Question {
+  id: ID! @unique
+  query: String!
+  isPublic: Boolean!
+  responses: [Response!]!
+    @relation(name: "ResponsesForQuestion", onDelete: CASCADE)
+  company: Company! @relation(name: "QuestionsByCompany")
+}
+
+type Company {
+  id: ID! @unique
+  email: String! @unique
+  name: String!
+  password: String!
+  description: String!
+  questions: [Question!]!
+    @relation(name: "QuestionsByCompany", onDelete: CASCADE)
+  resetToken: String
+  resetTokenExpiry: Float
+}

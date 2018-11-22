@@ -1,0 +1,6 @@
+projects:
+  Anon-Server:
+    schemaPath: prisma.graphql
+    extensions:
+      endpoints:
+        default: "https://eu1.prisma.sh/p-g-nithin-reddy-7a1691/Anon-Server/dev"

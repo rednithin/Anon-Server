@@ -1,0 +1,1827 @@
+# source: https://eu1.prisma.sh/p-g-nithin-reddy-7a1691/Anon-Server/dev
+# timestamp: Thu Nov 22 2018 09:51:41 GMT+0530 (India Standard Time)
+
+type AggregateCompany {
+  count: Int!
+}
+
+type AggregateQuestion {
+  count: Int!
+}
+
+type AggregateResponse {
+  count: Int!
+}
+
+type BatchPayload {
+  """
+  The number of nodes that have been affected by the Batch operation.
+  """
+  count: Long!
+}
+
+type Company implements Node {
+  id: ID!
+  email: String!
+  name: String!
+  password: String!
+  description: String!
+  questions(
+    where: QuestionWhereInput
+    orderBy: QuestionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Question!]
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+"""
+A connection to a list of items.
+"""
+type CompanyConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [CompanyEdge]!
+  aggregate: AggregateCompany!
+}
+
+input CompanyCreateInput {
+  email: String!
+  name: String!
+  password: String!
+  description: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  questions: QuestionCreateManyWithoutCompanyInput
+}
+
+input CompanyCreateOneWithoutQuestionsInput {
+  create: CompanyCreateWithoutQuestionsInput
+  connect: CompanyWhereUniqueInput
+}
+
+input CompanyCreateWithoutQuestionsInput {
+  email: String!
+  name: String!
+  password: String!
+  description: String!
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+"""
+An edge in a connection.
+"""
+type CompanyEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Company!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum CompanyOrderByInput {
+  id_ASC
+  id_DESC
+  email_ASC
+  email_DESC
+  name_ASC
+  name_DESC
+  password_ASC
+  password_DESC
+  description_ASC
+  description_DESC
+  resetToken_ASC
+  resetToken_DESC
+  resetTokenExpiry_ASC
+  resetTokenExpiry_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CompanyPreviousValues {
+  id: ID!
+  email: String!
+  name: String!
+  password: String!
+  description: String!
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+type CompanySubscriptionPayload {
+  mutation: MutationType!
+  node: Company
+  updatedFields: [String!]
+  previousValues: CompanyPreviousValues
+}
+
+input CompanySubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CompanySubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CompanySubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CompanySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CompanyWhereInput
+}
+
+input CompanyUpdateInput {
+  email: String
+  name: String
+  password: String
+  description: String
+  resetToken: String
+  resetTokenExpiry: Float
+  questions: QuestionUpdateManyWithoutCompanyInput
+}
+
+input CompanyUpdateManyMutationInput {
+  email: String
+  name: String
+  password: String
+  description: String
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+input CompanyUpdateOneRequiredWithoutQuestionsInput {
+  create: CompanyCreateWithoutQuestionsInput
+  connect: CompanyWhereUniqueInput
+  update: CompanyUpdateWithoutQuestionsDataInput
+  upsert: CompanyUpsertWithoutQuestionsInput
+}
+
+input CompanyUpdateWithoutQuestionsDataInput {
+  email: String
+  name: String
+  password: String
+  description: String
+  resetToken: String
+  resetTokenExpiry: Float
+}
+
+input CompanyUpsertWithoutQuestionsInput {
+  update: CompanyUpdateWithoutQuestionsDataInput!
+  create: CompanyCreateWithoutQuestionsInput!
+}
+
+input CompanyWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CompanyWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CompanyWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [CompanyWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  email: String
+
+  """
+  All values that are not equal to given value.
+  """
+  email_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  email_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  email_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  email_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  email_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  email_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  email_gte: String
+
+  """
+  All values containing the given string.
+  """
+  email_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  email_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  email_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  email_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  email_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  email_not_ends_with: String
+  name: String
+
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+  password: String
+
+  """
+  All values that are not equal to given value.
+  """
+  password_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  password_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  password_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  password_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  password_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  password_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  password_gte: String
+
+  """
+  All values containing the given string.
+  """
+  password_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  password_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  password_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  password_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  password_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  password_not_ends_with: String
+  description: String
+
+  """
+  All values that are not equal to given value.
+  """
+  description_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  description_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  description_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  description_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  description_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  description_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  description_gte: String
+
+  """
+  All values containing the given string.
+  """
+  description_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  description_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  description_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  description_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  description_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  description_not_ends_with: String
+  resetToken: String
+
+  """
+  All values that are not equal to given value.
+  """
+  resetToken_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  resetToken_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  resetToken_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  resetToken_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  resetToken_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  resetToken_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  resetToken_gte: String
+
+  """
+  All values containing the given string.
+  """
+  resetToken_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  resetToken_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  resetToken_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  resetToken_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  resetToken_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  resetToken_not_ends_with: String
+  resetTokenExpiry: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  resetTokenExpiry_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  resetTokenExpiry_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  resetTokenExpiry_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  resetTokenExpiry_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  resetTokenExpiry_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  resetTokenExpiry_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  resetTokenExpiry_gte: Float
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
+}
+
+input CompanyWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createResponse(data: ResponseCreateInput!): Response!
+  createQuestion(data: QuestionCreateInput!): Question!
+  createCompany(data: CompanyCreateInput!): Company!
+  updateResponse(
+    data: ResponseUpdateInput!
+    where: ResponseWhereUniqueInput!
+  ): Response
+  updateQuestion(
+    data: QuestionUpdateInput!
+    where: QuestionWhereUniqueInput!
+  ): Question
+  updateCompany(
+    data: CompanyUpdateInput!
+    where: CompanyWhereUniqueInput!
+  ): Company
+  deleteResponse(where: ResponseWhereUniqueInput!): Response
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteCompany(where: CompanyWhereUniqueInput!): Company
+  upsertResponse(
+    where: ResponseWhereUniqueInput!
+    create: ResponseCreateInput!
+    update: ResponseUpdateInput!
+  ): Response!
+  upsertQuestion(
+    where: QuestionWhereUniqueInput!
+    create: QuestionCreateInput!
+    update: QuestionUpdateInput!
+  ): Question!
+  upsertCompany(
+    where: CompanyWhereUniqueInput!
+    create: CompanyCreateInput!
+    update: CompanyUpdateInput!
+  ): Company!
+  updateManyResponses(
+    data: ResponseUpdateManyMutationInput!
+    where: ResponseWhereInput
+  ): BatchPayload!
+  updateManyQuestions(
+    data: QuestionUpdateManyMutationInput!
+    where: QuestionWhereInput
+  ): BatchPayload!
+  updateManyCompanies(
+    data: CompanyUpdateManyMutationInput!
+    where: CompanyWhereInput
+  ): BatchPayload!
+  deleteManyResponses(where: ResponseWhereInput): BatchPayload!
+  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManyCompanies(where: CompanyWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""
+An object with an ID
+"""
+interface Node {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type Query {
+  responses(
+    where: ResponseWhereInput
+    orderBy: ResponseOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Response]!
+  questions(
+    where: QuestionWhereInput
+    orderBy: QuestionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Question]!
+  companies(
+    where: CompanyWhereInput
+    orderBy: CompanyOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Company]!
+  response(where: ResponseWhereUniqueInput!): Response
+  question(where: QuestionWhereUniqueInput!): Question
+  company(where: CompanyWhereUniqueInput!): Company
+  responsesConnection(
+    where: ResponseWhereInput
+    orderBy: ResponseOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ResponseConnection!
+  questionsConnection(
+    where: QuestionWhereInput
+    orderBy: QuestionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): QuestionConnection!
+  companiesConnection(
+    where: CompanyWhereInput
+    orderBy: CompanyOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CompanyConnection!
+
+  """
+  Fetches an object given its ID
+  """
+  node(
+    """
+    The ID of an object
+    """
+    id: ID!
+  ): Node
+}
+
+type Question implements Node {
+  id: ID!
+  query: String!
+  isPublic: Boolean!
+  responses(
+    where: ResponseWhereInput
+    orderBy: ResponseOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Response!]
+  company: Company!
+}
+
+"""
+A connection to a list of items.
+"""
+type QuestionConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [QuestionEdge]!
+  aggregate: AggregateQuestion!
+}
+
+input QuestionCreateInput {
+  query: String!
+  isPublic: Boolean!
+  responses: ResponseCreateManyWithoutQuestionInput
+  company: CompanyCreateOneWithoutQuestionsInput!
+}
+
+input QuestionCreateManyWithoutCompanyInput {
+  create: [QuestionCreateWithoutCompanyInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateOneWithoutResponsesInput {
+  create: QuestionCreateWithoutResponsesInput
+  connect: QuestionWhereUniqueInput
+}
+
+input QuestionCreateWithoutCompanyInput {
+  query: String!
+  isPublic: Boolean!
+  responses: ResponseCreateManyWithoutQuestionInput
+}
+
+input QuestionCreateWithoutResponsesInput {
+  query: String!
+  isPublic: Boolean!
+  company: CompanyCreateOneWithoutQuestionsInput!
+}
+
+"""
+An edge in a connection.
+"""
+type QuestionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Question!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum QuestionOrderByInput {
+  id_ASC
+  id_DESC
+  query_ASC
+  query_DESC
+  isPublic_ASC
+  isPublic_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type QuestionPreviousValues {
+  id: ID!
+  query: String!
+  isPublic: Boolean!
+}
+
+input QuestionScalarWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [QuestionScalarWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [QuestionScalarWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [QuestionScalarWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  query: String
+
+  """
+  All values that are not equal to given value.
+  """
+  query_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  query_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  query_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  query_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  query_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  query_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  query_gte: String
+
+  """
+  All values containing the given string.
+  """
+  query_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  query_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  query_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  query_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  query_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  query_not_ends_with: String
+  isPublic: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  isPublic_not: Boolean
+}
+
+type QuestionSubscriptionPayload {
+  mutation: MutationType!
+  node: Question
+  updatedFields: [String!]
+  previousValues: QuestionPreviousValues
+}
+
+input QuestionSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [QuestionSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [QuestionSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [QuestionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: QuestionWhereInput
+}
+
+input QuestionUpdateInput {
+  query: String
+  isPublic: Boolean
+  responses: ResponseUpdateManyWithoutQuestionInput
+  company: CompanyUpdateOneRequiredWithoutQuestionsInput
+}
+
+input QuestionUpdateManyDataInput {
+  query: String
+  isPublic: Boolean
+}
+
+input QuestionUpdateManyMutationInput {
+  query: String
+  isPublic: Boolean
+}
+
+input QuestionUpdateManyWithoutCompanyInput {
+  create: [QuestionCreateWithoutCompanyInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutCompanyInput!]
+  updateMany: [QuestionUpdateManyWithWhereNestedInput!]
+  deleteMany: [QuestionScalarWhereInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutCompanyInput!]
+}
+
+input QuestionUpdateManyWithWhereNestedInput {
+  where: QuestionScalarWhereInput!
+  data: QuestionUpdateManyDataInput!
+}
+
+input QuestionUpdateOneRequiredWithoutResponsesInput {
+  create: QuestionCreateWithoutResponsesInput
+  connect: QuestionWhereUniqueInput
+  update: QuestionUpdateWithoutResponsesDataInput
+  upsert: QuestionUpsertWithoutResponsesInput
+}
+
+input QuestionUpdateWithoutCompanyDataInput {
+  query: String
+  isPublic: Boolean
+  responses: ResponseUpdateManyWithoutQuestionInput
+}
+
+input QuestionUpdateWithoutResponsesDataInput {
+  query: String
+  isPublic: Boolean
+  company: CompanyUpdateOneRequiredWithoutQuestionsInput
+}
+
+input QuestionUpdateWithWhereUniqueWithoutCompanyInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutCompanyDataInput!
+}
+
+input QuestionUpsertWithoutResponsesInput {
+  update: QuestionUpdateWithoutResponsesDataInput!
+  create: QuestionCreateWithoutResponsesInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutCompanyInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutCompanyDataInput!
+  create: QuestionCreateWithoutCompanyInput!
+}
+
+input QuestionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [QuestionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [QuestionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [QuestionWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  query: String
+
+  """
+  All values that are not equal to given value.
+  """
+  query_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  query_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  query_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  query_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  query_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  query_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  query_gte: String
+
+  """
+  All values containing the given string.
+  """
+  query_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  query_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  query_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  query_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  query_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  query_not_ends_with: String
+  isPublic: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  isPublic_not: Boolean
+  responses_every: ResponseWhereInput
+  responses_some: ResponseWhereInput
+  responses_none: ResponseWhereInput
+  company: CompanyWhereInput
+}
+
+input QuestionWhereUniqueInput {
+  id: ID
+}
+
+type Response implements Node {
+  id: ID!
+  response: String!
+  question: Question!
+}
+
+"""
+A connection to a list of items.
+"""
+type ResponseConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [ResponseEdge]!
+  aggregate: AggregateResponse!
+}
+
+input ResponseCreateInput {
+  response: String!
+  question: QuestionCreateOneWithoutResponsesInput!
+}
+
+input ResponseCreateManyWithoutQuestionInput {
+  create: [ResponseCreateWithoutQuestionInput!]
+  connect: [ResponseWhereUniqueInput!]
+}
+
+input ResponseCreateWithoutQuestionInput {
+  response: String!
+}
+
+"""
+An edge in a connection.
+"""
+type ResponseEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Response!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum ResponseOrderByInput {
+  id_ASC
+  id_DESC
+  response_ASC
+  response_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ResponsePreviousValues {
+  id: ID!
+  response: String!
+}
+
+input ResponseScalarWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [ResponseScalarWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [ResponseScalarWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [ResponseScalarWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  response: String
+
+  """
+  All values that are not equal to given value.
+  """
+  response_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  response_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  response_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  response_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  response_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  response_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  response_gte: String
+
+  """
+  All values containing the given string.
+  """
+  response_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  response_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  response_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  response_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  response_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  response_not_ends_with: String
+}
+
+type ResponseSubscriptionPayload {
+  mutation: MutationType!
+  node: Response
+  updatedFields: [String!]
+  previousValues: ResponsePreviousValues
+}
+
+input ResponseSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [ResponseSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [ResponseSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [ResponseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ResponseWhereInput
+}
+
+input ResponseUpdateInput {
+  response: String
+  question: QuestionUpdateOneRequiredWithoutResponsesInput
+}
+
+input ResponseUpdateManyDataInput {
+  response: String
+}
+
+input ResponseUpdateManyMutationInput {
+  response: String
+}
+
+input ResponseUpdateManyWithoutQuestionInput {
+  create: [ResponseCreateWithoutQuestionInput!]
+  connect: [ResponseWhereUniqueInput!]
+  disconnect: [ResponseWhereUniqueInput!]
+  delete: [ResponseWhereUniqueInput!]
+  update: [ResponseUpdateWithWhereUniqueWithoutQuestionInput!]
+  updateMany: [ResponseUpdateManyWithWhereNestedInput!]
+  deleteMany: [ResponseScalarWhereInput!]
+  upsert: [ResponseUpsertWithWhereUniqueWithoutQuestionInput!]
+}
+
+input ResponseUpdateManyWithWhereNestedInput {
+  where: ResponseScalarWhereInput!
+  data: ResponseUpdateManyDataInput!
+}
+
+input ResponseUpdateWithoutQuestionDataInput {
+  response: String
+}
+
+input ResponseUpdateWithWhereUniqueWithoutQuestionInput {
+  where: ResponseWhereUniqueInput!
+  data: ResponseUpdateWithoutQuestionDataInput!
+}
+
+input ResponseUpsertWithWhereUniqueWithoutQuestionInput {
+  where: ResponseWhereUniqueInput!
+  update: ResponseUpdateWithoutQuestionDataInput!
+  create: ResponseCreateWithoutQuestionInput!
+}
+
+input ResponseWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [ResponseWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [ResponseWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [ResponseWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  response: String
+
+  """
+  All values that are not equal to given value.
+  """
+  response_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  response_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  response_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  response_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  response_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  response_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  response_gte: String
+
+  """
+  All values containing the given string.
+  """
+  response_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  response_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  response_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  response_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  response_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  response_not_ends_with: String
+  question: QuestionWhereInput
+}
+
+input ResponseWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  response(where: ResponseSubscriptionWhereInput): ResponseSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  company(where: CompanySubscriptionWhereInput): CompanySubscriptionPayload
+}
