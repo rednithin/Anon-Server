@@ -5,13 +5,16 @@ const Mutation = {
   async signup(parent, args, ctx, info) {
     args.email = args.email.toLowerCase();
     args.password = bcrypt.hashSync(args.password);
-    const company = await ctx.db.mutation.createCompany({ data: { ...args } });
+    const company = await ctx.db.mutation.createCompany(
+      { data: { ...args } },
+      info
+    );
     const TIME = 60 * 60 * 24;
     const token = jwt.sign({ companyID: company.id }, process.env.APP_SECRET, {
       expiresIn: TIME
     });
     ctx.response.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: TIME
     });
     return company;

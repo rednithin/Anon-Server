@@ -41,7 +41,7 @@ const Query = {
   },
 
   async signin(parent, { email, password }, ctx, info) {
-    const company = await ctx.db.query.company({
+    let company = await ctx.db.query.company({
       where: { email }
     });
     if (!company) {
@@ -55,9 +55,15 @@ const Query = {
       expiresIn: TIME
     });
     ctx.response.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: TIME
     });
+    company = await ctx.db.query.company(
+      {
+        where: { email }
+      },
+      info
+    );
     return company;
   }
 };
