@@ -9,7 +9,18 @@ const Query = {
       { where: { id: questionID } },
       info
     );
-    if (!question.isPublic) question.responses = [];
+    const { companyID } = ctx.request;
+    if (companyID) {
+      const companyQuestions = await ctx.db.query.questions(
+        {
+          where: { id: questionID, company: { id: companyID } }
+        },
+        info
+      );
+      if (companyQuestions.length === 0) {
+        if (!question.isPublic) question.responses = [];
+      }
+    }
     return question;
   },
 
