@@ -20,6 +20,8 @@ const Query = {
       if (companyQuestions.length === 0) {
         if (!question.isPublic) question.responses = [];
       }
+    } else {
+      if (!question.isPublic) question.responses = [];
     }
     return question;
   },
