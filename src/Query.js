@@ -63,13 +63,12 @@ const Query = {
     if (!bcrypt.compareSync(password, company.password)) {
       throw new Error("Invalid Password");
     }
-    const TIME = 60 * 60 * 24;
+    const TIME = 60 * 60 * 24 * 365;
     const token = jwt.sign({ companyID: company.id }, process.env.APP_SECRET, {
       expiresIn: TIME
     });
     ctx.response.cookie("token", token, {
-      httpOnly: false,
-      maxAge: TIME
+      httpOnly: false
     });
     company = await ctx.db.query.company(
       {
