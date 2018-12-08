@@ -3,4 +3,5 @@ projects:
     schemaPath: prisma.graphql
     extensions:
       endpoints:
-        default: "https://eu1.prisma.sh/p-g-nithin-reddy-7a1691/Anon-Server/dev"
+        default: "http://localhost:4466"
+        # online: "https://eu1.prisma.sh/p-g-nithin-reddy-7a1691/Anon-Server/dev"
